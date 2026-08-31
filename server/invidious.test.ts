@@ -19,6 +19,15 @@ describe("invidious mirror proxy", () => {
     await expect(appRouter.createCaller(context).invidious.selectMirror({ uri: "http://example.com" })).rejects.toMatchObject({ code: "BAD_REQUEST" });
   });
 
+  it("returns structured unavailability for a video no mirror can serve", async () => {
+    resetMirrorCaches();
+    vi.stubGlobal("fetch", vi.fn(async (input: URL | string) => { const url = String(input); if (url.includes("instances.json")) return Response.json([["only.example", { uri: "https://only.example", type: "https", published: true, monitor: { uptime: 99, down: false, last_status: 200 } }]]); if (url.endsWith("/api/v1/stats")) return Response.json({ version: "test" }); return new Response("missing", { status: 404 }); }));
+    const result = await appRouter.createCaller(context).invidious.video({ id: "Z4SXUkRq92M" });
+    expect(result).toMatchObject({ videoId: "Z4SXUkRq92M", unavailable: true });
+    vi.unstubAllGlobals();
+    resetMirrorCaches();
+  });
+
   it("parses only HTTPS directory rows and ranks healthy uptime", () => {
     const https = parseMirrorRow(["good.example", { uri: "https://good.example/", type: "https", published: true, monitor: { uptime: 99.5, down: false, last_status: 200 } }]);
     const http = parseMirrorRow(["bad.example", { uri: "http://bad.example", type: "http" }]);

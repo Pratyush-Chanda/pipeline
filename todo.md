@@ -68,3 +68,10 @@
 - [x] Normalize relative Invidious thumbnails and media URLs against the selected mirror origin before rendering.
 - [x] Add tests for video, channel, and playlist result destination routing and custom page paths.
 - [x] Re-run validation after URL normalization and route-test additions.
+
+## Watch request failure
+
+- [x] Diagnose why `/watch/Z4SXUkRq92M` cannot be served by discovered mirrors.
+- [x] Add watch-specific fallback or clearer unavailable-video handling without breaking other Invidious requests.
+- [x] Add a regression test for watch request failures and affected-video behavior.
+- [x] Re-run validation and save a repaired checkpoint.
