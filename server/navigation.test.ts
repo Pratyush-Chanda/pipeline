@@ -1,4 +1,6 @@
 import { describe, expect, it } from "vitest";
+import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 import { pageRoute, resultHref } from "../client/src/lib/navigation";
 import { normalizeMediaUrls } from "./routers";
 
@@ -19,6 +21,12 @@ describe("pipeline navigation and upstream URL helpers", () => {
     expect(pageRoute("/subscriptions")).toBe("subscriptions");
     expect(pageRoute("/playlists")).toBe("library");
     expect(pageRoute("/")).toBe("home");
+  });
+
+  it("keeps the watch playback path free of YouTube-hosted embeds", () => {
+    const source = readFileSync(fileURLToPath(new URL("../client/src/pages/Home.tsx", import.meta.url)), "utf8");
+    expect(source.toLowerCase()).not.toContain("youtube.com/embed");
+    expect(source.toLowerCase()).not.toContain("youtube-nocookie.com/embed");
   });
 
   it("absolutizes media and thumbnail URLs without rewriting creator paths", () => {

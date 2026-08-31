@@ -75,3 +75,15 @@
 - [x] Add watch-specific fallback or clearer unavailable-video handling without breaking other Invidious requests.
 - [x] Add a regression test for watch request failures and affected-video behavior.
 - [x] Re-run validation and save a repaired checkpoint.
+
+## Invidious-only playback
+
+- [x] Remove all `youtube.com` and `youtube-nocookie.com` embed URLs from playback code.
+- [x] Replace the embed fallback with a clear Invidious-only unavailable state and mirror retry guidance.
+- [x] Add regression coverage proving no YouTube embed URL remains in the watch playback path.
+- [x] Run typecheck, tests, build, and save a new checkpoint.
+
+## No-embed verification follow-up
+
+- [x] Add an automated source-level regression test asserting watch playback contains no YouTube embed URL.
+- [x] Save a fresh checkpoint after the no-embed playback change.
