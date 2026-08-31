@@ -128,3 +128,10 @@
 - [x] Add SPA fallback handling for direct search, watch, channel, and playlist URLs.
 - [x] Document GitHub Pages limitations and the required server/API deployment path for live Invidious data.
 - [x] Validate the Pages build artifact; checkpoint refresh remains the final delivery step.
+
+## Branch-based GitHub Pages correction
+
+- [x] Remove the unnecessary GitHub Actions Pages workflow.
+- [x] Add branch-based Pages publishing guidance so `dist/public` becomes the Pages source instead of README.md.
+- [x] Ensure the static artifact has an `index.html` root and SPA fallback for direct routes.
+- [x] Validate the corrected artifact; checkpoint refresh remains the final delivery step.

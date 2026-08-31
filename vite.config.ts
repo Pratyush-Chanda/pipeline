@@ -154,7 +154,7 @@ const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(
 
 export default defineConfig({
   // GitHub Pages serves this repository at /pipeline/; local and Manus previews remain at /.
-  base: process.env.GITHUB_ACTIONS ? "/pipeline/" : "/",
+  base: process.env.GITHUB_PAGES ? "/pipeline/" : "/",
   plugins,
   resolve: {
     alias: {

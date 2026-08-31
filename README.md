@@ -38,8 +38,8 @@ The public directory and public instances can change availability and may enforc
 
 ## GitHub Pages
 
-The repository includes `.github/workflows/deploy-pages.yml`, which builds the client-only artifact, creates `404.html` for direct SPA routes, and deploys `dist/public` through GitHub Pages. The Vite build uses `/pipeline/` as its repository-scoped base path in GitHub Actions. If the repository name differs from `pipeline`, update the `base` value in `vite.config.ts`.
+The linked repository `Pratyush-Chanda/pipeline` uses legacy branch-based Pages from `main` and `/`. To publish the static client there, run `GITHUB_PAGES=true pnpm build:client`, then copy the generated `dist/public/index.html` to `dist/public/404.html` for direct SPA routes and publish the contents of `dist/public` to the repository root (or use a `gh-pages` branch if you prefer a clean source branch). The Vite build uses `/pipeline/` when `GITHUB_PAGES=true`.
 
-GitHub Pages hosts the static interface but cannot run this project’s Express/tRPC server. Native API-powered feeds, search, metadata, and direct media therefore require the full server deployment or a browser-accessible API configuration. Use GitHub Pages for the static shell and the project hosting flow for the full server-backed application.
+GitHub Pages hosts the static interface but cannot run this project’s Express/tRPC server. Native API-powered feeds, search, metadata, and direct media therefore require the full server deployment or a browser-accessible API configuration. Use Pages for the static shell and the project hosting flow for the full server-backed application.
 
 The directory format and endpoint behavior are documented by [Invidious Instances](https://docs.invidious.io/instances/) and the [Invidious API documentation](https://docs.invidious.io/api/).
