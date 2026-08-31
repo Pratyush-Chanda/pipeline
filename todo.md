@@ -49,4 +49,4 @@
 
 - [x] Rediscover mirrors after cached-mirror request failure and retry an alternate healthy candidate in the real proxy flow.
 - [x] Add a test covering cached-mirror failure through the actual Invidious request procedure.
-- [ ] Save a fresh checkpoint after this final correction.
+- [x] Save a fresh checkpoint after this final correction.
