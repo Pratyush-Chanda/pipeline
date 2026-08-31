@@ -13,6 +13,10 @@ export function pageRoute(path: string): PipelineRoute {
   return "home";
 }
 
+export function chooseWebMirror(mirrors: NavigableResult[]): string | null { return mirrors.find(item => item.webHealthy && item.uri)?.uri || null; }
+
+export function webFallbackUrl(source: string, options: { id?: string; query?: string }): string { const base = source.endsWith("/") ? source.slice(0, -1) : source; return options.id ? `${base}/watch?v=${encodeURIComponent(options.id)}` : `${base}/search?q=${encodeURIComponent(options.query || "")}`; }
+
 export function resultHref(item: NavigableResult): string | null {
   if (item.type === "channel" && item.authorId) return `/channel/${item.authorId}`;
   if (item.type === "playlist" && item.playlistId) return `/playlist/${item.playlistId}`;

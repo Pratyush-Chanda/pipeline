@@ -103,3 +103,20 @@
 - [x] Add native player media-error handling with an Invidious-only retry state and test-compatible stream selection.
 - [x] Verify search with a working manual HTTPS Invidious mirror or clearly label public mirror unavailability.
 - [x] Save a fresh checkpoint after these verified search and playback fixes.
+
+## Player and search usability repair
+
+- [x] Add server-side discovery of mirrors that expose a usable web frontend, separate from API health.
+- [x] Add an Invidious web-page player fallback without using any YouTube-hosted embed URL.
+- [x] Add an Invidious web-search fallback when API search is rejected by public mirrors.
+- [x] Keep native direct media playback first, with a visible retry and open-on-mirror path when media fails.
+- [x] Add tests for web-mirror selection and fallback URL generation.
+- [x] Run typecheck, tests, build, and save a repaired checkpoint.
+
+## Web fallback completion
+
+- [x] Add a visible retry action when native media playback fails while preserving the Invidious open-on-mirror link.
+- [x] Add automated tests for Invidious web watch and search fallback URL generation.
+- [x] Save a fresh checkpoint after the player/search usability repair.
+
+- [ ] Save the final checkpoint after the web-fallback retry controls and fallback-URL tests.

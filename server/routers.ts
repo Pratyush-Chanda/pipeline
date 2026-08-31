@@ -4,7 +4,7 @@ import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
 
-type Mirror = { name: string; uri: string; region?: string; flag?: string; uptime?: number; down?: boolean; api?: boolean; cors?: boolean; published?: boolean; lastStatus?: number | null; latencyMs?: number; healthy?: boolean };
+type Mirror = { name: string; uri: string; region?: string; flag?: string; uptime?: number; down?: boolean; api?: boolean; cors?: boolean; published?: boolean; lastStatus?: number | null; latencyMs?: number; healthy?: boolean; webHealthy?: boolean; webLatencyMs?: number };
 type DirectoryRow = [string, { uri?: string; region?: string; flag?: string; type?: string; api?: boolean; cors?: boolean; published?: boolean; monitor?: { uptime?: number; down?: boolean; last_status?: number } | null }];
 let directoryCache: { expires: number; mirrors: Mirror[] } | null = null;
 let autoMirrorCache: { expires: number; mirror: Mirror; candidates: Mirror[] } | null = null;
@@ -20,12 +20,13 @@ async function fetchDirectory(): Promise<Mirror[]> {
   const response = await fetch("https://api.invidious.io/instances.json?sort_by=type,users", { headers: { accept: "application/json" }, signal: AbortSignal.timeout(8000) });
   if (!response.ok) throw new Error("Mirror directory unavailable");
   const rows = await response.json() as DirectoryRow[];
-  const mirrors = rows.map(parseMirrorRow).filter((item): item is Mirror => Boolean(item)).filter(item => item.published !== false && item.down !== true && item.api !== false).slice(0, 20);
+  const mirrors = rows.map(parseMirrorRow).filter((item): item is Mirror => Boolean(item)).filter(item => item.published !== false && item.down !== true).slice(0, 30);
   directoryCache = { expires: Date.now() + 5 * 60_000, mirrors };
   return mirrors;
 }
 
 async function checkMirror(mirror: Mirror): Promise<Mirror> { const started = Date.now(); try { const response = await fetch(`${mirror.uri}/api/v1/stats`, { headers: { accept: "application/json" }, signal: AbortSignal.timeout(5000) }); return { ...mirror, latencyMs: Date.now() - started, lastStatus: response.status, healthy: response.ok }; } catch { return { ...mirror, latencyMs: Date.now() - started, healthy: false }; } }
+async function checkWebMirror(mirror: Mirror): Promise<Mirror> { const started = Date.now(); try { const response = await fetch(`${mirror.uri}/`, { headers: { accept: "text/html", "user-agent": "pipeline/1.0" }, signal: AbortSignal.timeout(5000) }); return { ...mirror, webLatencyMs: Date.now() - started, webHealthy: response.ok }; } catch { return { ...mirror, webLatencyMs: Date.now() - started, webHealthy: false }; } }
 
 async function chooseMirror(manual?: string): Promise<{ mirror: Mirror; candidates: Mirror[] }> {
   if (!manual && autoMirrorCache && autoMirrorCache.expires > Date.now()) return { mirror: autoMirrorCache.mirror, candidates: autoMirrorCache.candidates };
@@ -59,7 +60,7 @@ export const appRouter = router({
   auth: router({ me: publicProcedure.query(opts => opts.ctx.user), logout: publicProcedure.mutation(({ ctx }) => { const cookieOptions = getSessionCookieOptions(ctx.req); ctx.res.clearCookie(COOKIE_NAME, { ...cookieOptions, maxAge: -1 }); return { success: true } as const; }) }),
   invidious: router({
     config: publicProcedure.query(() => ({ configured: true, requiresApiKey: false })),
-    mirrors: publicProcedure.query(async () => { const mirrors = await fetchDirectory(); const checked = await Promise.all(mirrors.slice(0, 12).map(checkMirror)); return checked; }),
+    mirrors: publicProcedure.query(async () => { const mirrors = await fetchDirectory(); const checked = await Promise.all(mirrors.slice(0, 20).map(checkWebMirror)); return checked; }),
     selectMirror: publicProcedure.input(z.object({ uri: selectedMirror })).query(async ({ input }) => checkMirror({ name: new URL(input.uri).hostname, uri: clean(input.uri) })),
     popular: publicProcedure.input(z.object({ region: z.string().length(2).optional(), mirror: selectedMirror.optional() }).optional()).query(({ input }) => invidious<unknown[]>("/popular", { region: input?.region ?? "US" }, input?.mirror)),
     trending: publicProcedure.input(z.object({ region: z.string().length(2).optional(), type: z.enum(["default", "music", "gaming", "movies"]).optional(), mirror: selectedMirror.optional() }).optional()).query(({ input }) => invidious<unknown[]>("/trending", { region: input?.region ?? "US", type: input?.type }, input?.mirror)),

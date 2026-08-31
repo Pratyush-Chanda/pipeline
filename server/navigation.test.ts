@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
-import { pageRoute, resultHref } from "../client/src/lib/navigation";
+import { chooseWebMirror, pageRoute, resultHref, webFallbackUrl } from "../client/src/lib/navigation";
 import { normalizeMediaUrls } from "./routers";
 
 describe("pipeline navigation and upstream URL helpers", () => {
@@ -10,6 +10,16 @@ describe("pipeline navigation and upstream URL helpers", () => {
     expect(resultHref({ type: "channel", authorId: "chan" })).toBe("/channel/chan");
     expect(resultHref({ type: "playlist", playlistId: "list" })).toBe("/playlist/list");
     expect(resultHref({ type: "video" })).toBeNull();
+  });
+
+  it("builds Invidious-only watch and search fallback URLs", () => {
+    expect(webFallbackUrl("https://mirror.example/", { id: "abc123" })).toBe("https://mirror.example/watch?v=abc123");
+    expect(webFallbackUrl("https://mirror.example", { query: "lofi & jazz" })).toBe("https://mirror.example/search?q=lofi%20%26%20jazz");
+  });
+
+  it("chooses only a web-healthy mirror for fallback pages", () => {
+    expect(chooseWebMirror([{ uri: "https://blocked.example", webHealthy: false }, { uri: "https://web.example", webHealthy: true }])).toBe("https://web.example");
+    expect(chooseWebMirror([{ uri: "https://blocked.example", webHealthy: false }])).toBeNull();
   });
 
   it("classifies every custom page path for the pipeline shell", () => {
