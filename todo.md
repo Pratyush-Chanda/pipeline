@@ -87,3 +87,19 @@
 
 - [x] Add an automated source-level regression test asserting watch playback contains no YouTube embed URL.
 - [x] Save a fresh checkpoint after the no-embed playback change.
+
+## Search and playback regression
+
+- [x] Diagnose why the current Invidious search procedure returns no usable results.
+- [x] Diagnose why direct stream playback fails for the reported video path.
+- [x] Make search tolerate mirror API variations and return normalized result data.
+- [x] Make playback select only browser-compatible direct streams and report media failures clearly.
+- [x] Add regression coverage for search normalization and playback failure handling.
+- [x] Re-run typecheck, tests, build, and save a repaired checkpoint.
+
+## Search and playback verification gaps
+
+- [x] Normalize search result shapes for video, channel, and playlist responses and test typed-search fallback.
+- [x] Add native player media-error handling with an Invidious-only retry state and test-compatible stream selection.
+- [x] Verify search with a working manual HTTPS Invidious mirror or clearly label public mirror unavailability.
+- [x] Save a fresh checkpoint after these verified search and playback fixes.

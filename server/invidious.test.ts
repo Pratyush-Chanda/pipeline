@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { appRouter, parseMirrorRow, rankMirrors, requestWithFallback, resetMirrorCaches } from "./routers";
+import { appRouter, normalizeSearchResults, parseMirrorRow, rankMirrors, requestWithFallback, resetMirrorCaches, searchInvidious } from "./routers";
 import type { TrpcContext } from "./_core/context";
 
 const context = { user: null, req: {} as TrpcContext["req"], res: {} as TrpcContext["res"] } satisfies TrpcContext;
@@ -28,12 +28,22 @@ describe("invidious mirror proxy", () => {
     resetMirrorCaches();
   });
 
+  it("normalizes typed search results and retries video search without type", async () => {
+    expect(normalizeSearchResults([{ authorId: "channel", author: "Creator" }, { playlistId: "playlist", playlistTitle: "Queue" }, { videoId: "video", title: "Clip" }])).toMatchObject([{ type: "channel", title: "Creator" }, { type: "playlist", title: "Queue" }, { type: "video", title: "Clip" }]);
+    resetMirrorCaches();
+    vi.stubGlobal("fetch", vi.fn(async (input: URL | string) => { const url = String(input); if (url.includes("instances.json")) return Response.json([]); if (url.endsWith("/api/v1/stats")) return Response.json({ version: "test" }); if (url.includes("/api/v1/search") && url.includes("type=video")) return new Response("unsupported", { status: 400 }); return Response.json([{ videoId: "video", title: "Clip" }]); }));
+    const result = await searchInvidious("music", 1, "video", "https://manual.example");
+    expect(result).toMatchObject([{ videoId: "video", type: "video" }]);
+    vi.unstubAllGlobals();
+    resetMirrorCaches();
+  });
+
   it("parses only HTTPS directory rows and ranks healthy uptime", () => {
     const https = parseMirrorRow(["good.example", { uri: "https://good.example/", type: "https", published: true, monitor: { uptime: 99.5, down: false, last_status: 200 } }]);
     const http = parseMirrorRow(["bad.example", { uri: "http://bad.example", type: "http" }]);
     expect(https?.uri).toBe("https://good.example");
     expect(http).toBeNull();
-    expect(rankMirrors([{ name: "low", uri: "https://low", uptime: 91 }, { name: "high", uri: "https://high", uptime: 99 }]).map(item => item.name)).toEqual(["high", "low"]);
+    expect(rankMirrors([{ name: "low", uri: "https://low", uptime: 91 }, { name: "high", uri: "https://high", uptime: 99 }, { name: "disabled", uri: "https://disabled", uptime: 100, api: false }]).map(item => item.name)).toEqual(["high", "low"]);
   });
 
   it("falls through to the next mirror when the first request fails", async () => {
