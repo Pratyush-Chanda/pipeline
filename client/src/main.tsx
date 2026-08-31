@@ -7,8 +7,11 @@ import superjson from "superjson";
 import App from "./App";
 import { startLogin } from "./const";
 import "./index.css";
+import { getTrpcUrl } from "./lib/apiOrigin";
 
 const queryClient = new QueryClient();
+
+const trpcUrl = getTrpcUrl(import.meta.env.VITE_API_ORIGIN, import.meta.env.BASE_URL === "/pipeline/");
 
 const redirectToLoginIfUnauthorized = (error: unknown) => {
   if (!(error instanceof TRPCClientError)) return;
@@ -40,7 +43,7 @@ queryClient.getMutationCache().subscribe(event => {
 const trpcClient = trpc.createClient({
   links: [
     httpBatchLink({
-      url: "/api/trpc",
+      url: trpcUrl,
       transformer: superjson,
       headers() {
         // Preview auto-login fallback: when the browser blocks iframe cookies

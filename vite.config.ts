@@ -79,7 +79,7 @@ function vitePluginManusDebugCollector(): Plugin {
     name: "manus-debug-collector",
 
     transformIndexHtml(html) {
-      if (process.env.NODE_ENV === "production") {
+      if (process.env.NODE_ENV === "production" || process.env.GITHUB_PAGES === "true" || process.env.GITHUB_PAGES === "1") {
         return html;
       }
       return {

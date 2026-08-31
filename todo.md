@@ -135,3 +135,20 @@
 - [x] Add branch-based Pages publishing guidance so `dist/public` becomes the Pages source instead of README.md.
 - [x] Ensure the static artifact has an `index.html` root and SPA fallback for direct routes.
 - [x] Validate the corrected artifact; checkpoint refresh remains the final delivery step.
+
+## GitHub Pages runtime repair
+
+- [x] Stop GitHub Pages builds from calling the Pages origin for `/api/trpc` requests.
+- [x] Add a configurable `VITE_API_ORIGIN` for the separately deployed server origin.
+- [x] Disable development-only Manus debug collector injection in production/Pages builds.
+- [x] Remove stale generated Pages artifacts before rebuilding the repository root.
+- [x] Validate static assets, Pages paths, tRPC URL construction, and build output.
+- [x] Save a repaired checkpoint.
+
+## Pages server-origin follow-up
+
+- [x] Make GitHub Pages builds fail-safe when `VITE_API_ORIGIN` is unset instead of targeting `/api/trpc` on the Pages domain.
+- [x] Add automated coverage for the Pages-origin URL behavior.
+- [x] Save a final checkpoint containing the runtime correction.
+
+- [ ] Save the final checkpoint after the GitHub Pages runtime-origin and debug-asset fixes.
