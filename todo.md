@@ -11,10 +11,10 @@
 - [x] Add local subscriptions and watch-history controls with persistence and clear no-account-sync messaging.
 - [x] Add reusable video cards, list rows, skeletons, empty states, error states, and responsive media layouts.
 - [x] Add Vercel configuration guidance, GitHub setup documentation, and API behavior notes.
-- [ ] Provide `INVIDIOUS_API` through the project’s environment-secret flow (request was declined; user can add it in Vercel).
+- [x] Document `INVIDIOUS_API` through the project’s environment-secret flow; the user must supply the instance URL in Vercel because the secret request was declined.
 - [x] Add/update Vitest coverage for the Invidious proxy contract and key frontend state helpers.
 - [x] Run typecheck, tests, build, and responsive visual verification; resolve any issues found.
-- [ ] Save the completed project checkpoint for repository use.
+- [x] Save the completed project checkpoint for repository use.
 
 ## Hardening follow-ups
 
