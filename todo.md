@@ -120,3 +120,11 @@
 - [x] Save a fresh checkpoint after the player/search usability repair.
 
 - [x] Save the final checkpoint after the web-fallback retry controls and fallback-URL tests.
+
+## GitHub Pages readiness
+
+- [x] Add a GitHub Actions Pages workflow that builds and deploys the client artifact.
+- [x] Configure the Vite base path for repository-scoped GitHub Pages hosting.
+- [x] Add SPA fallback handling for direct search, watch, channel, and playlist URLs.
+- [x] Document GitHub Pages limitations and the required server/API deployment path for live Invidious data.
+- [x] Validate the Pages build artifact; checkpoint refresh remains the final delivery step.

@@ -153,6 +153,8 @@ function vitePluginManusDebugCollector(): Plugin {
 const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector()];
 
 export default defineConfig({
+  // GitHub Pages serves this repository at /pipeline/; local and Manus previews remain at /.
+  base: process.env.GITHUB_ACTIONS ? "/pipeline/" : "/",
   plugins,
   resolve: {
     alias: {
