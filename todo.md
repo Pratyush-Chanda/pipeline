@@ -50,3 +50,21 @@
 - [x] Rediscover mirrors after cached-mirror request failure and retry an alternate healthy candidate in the real proxy flow.
 - [x] Add a test covering cached-mirror failure through the actual Invidious request procedure.
 - [x] Save a fresh checkpoint after this final correction.
+
+## Playback and browsing expansion
+
+- [x] Make search results render distinct video, channel, and playlist result cards with working links.
+- [x] Make watch pages play media from Invidious adaptive or format streams with safe fallback messaging.
+- [x] Add a native player control for choosing available video/audio quality when formats are present.
+- [x] Ensure video, channel, and playlist pages open from cards and preserve back/navigation paths.
+- [x] Improve watch metadata, channel actions, playlist queue navigation, and related-video links.
+- [x] Add tests for stream selection, search-result routing, and page navigation helpers.
+- [x] Run typecheck, tests, build, and responsive verification; checkpoint refresh remains the final delivery step.
+
+- [x] Route all custom pipeline paths through the application shell so search, watch, channel, and playlist URLs do not fall through to the template 404 page.
+
+## Playback URL and route verification
+
+- [x] Normalize relative Invidious thumbnails and media URLs against the selected mirror origin before rendering.
+- [x] Add tests for video, channel, and playlist result destination routing and custom page paths.
+- [x] Re-run validation after URL normalization and route-test additions.
