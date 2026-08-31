@@ -26,3 +26,27 @@
 - [x] Render local subscriptions as channel items with usable channel links and removal controls.
 - [x] Add frontend-focused tests for local history, saved items, and subscription persistence helpers.
 - [x] Verify responsive behavior at a mobile viewport and document the result.
+
+## Pipeline mirror and branding fixes
+
+- [x] Remove the hard failure when `INVIDIOUS_API` is absent and fall back to public Invidious mirror discovery.
+- [x] Add server-side mirror directory lookup from `api.invidious.io` with filtering and normalized instance URLs.
+- [x] Add server-side health checks and automatic best-mirror selection with graceful fallback.
+- [x] Add a frontend mirror settings panel with automatic selection and manually chosen discovered mirrors.
+- [x] Keep the selected mirror in local browser state without exposing secrets or triggering search on every keystroke.
+- [x] Rename all visible Watchly branding and documentation to pipeline.
+- [x] Add tests for mirror parsing, selection, and fallback behavior.
+- [x] Re-run typecheck, tests, build, and responsive visual verification; save a new checkpoint.
+
+## Final mirror hardening
+
+- [x] Retry a failed content request against another healthy discovered mirror before returning an error.
+- [x] Add tests for mirror parsing, automatic ranking, manual validation, and request fallback.
+- [x] Re-run desktop and mobile visual verification after the mirror settings update.
+- [x] Save a fresh checkpoint containing the completed pipeline mirror architecture.
+
+## Cached mirror retry correction
+
+- [x] Rediscover mirrors after cached-mirror request failure and retry an alternate healthy candidate in the real proxy flow.
+- [x] Add a test covering cached-mirror failure through the actual Invidious request procedure.
+- [ ] Save a fresh checkpoint after this final correction.
