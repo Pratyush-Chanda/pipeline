@@ -119,4 +119,4 @@
 - [x] Add automated tests for Invidious web watch and search fallback URL generation.
 - [x] Save a fresh checkpoint after the player/search usability repair.
 
-- [ ] Save the final checkpoint after the web-fallback retry controls and fallback-URL tests.
+- [x] Save the final checkpoint after the web-fallback retry controls and fallback-URL tests.
