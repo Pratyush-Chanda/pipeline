@@ -151,4 +151,4 @@
 - [x] Add automated coverage for the Pages-origin URL behavior.
 - [x] Save a final checkpoint containing the runtime correction.
 
-- [ ] Save the final checkpoint after the GitHub Pages runtime-origin and debug-asset fixes.
+- [x] Save the final checkpoint after the GitHub Pages runtime-origin and debug-asset fixes.
