@@ -152,3 +152,9 @@
 - [x] Save a final checkpoint containing the runtime correction.
 
 - [x] Save the final checkpoint after the GitHub Pages runtime-origin and debug-asset fixes.
+
+## Live Pages browser verification
+
+- [ ] Add and verify the in-browser backend-origin setting for static GitHub Pages builds.
+- [ ] Confirm an unconfigured Pages build makes no `/api/trpc` requests and shows a clear setup state.
+- [ ] Save a fresh checkpoint containing the live Pages runtime fix.
