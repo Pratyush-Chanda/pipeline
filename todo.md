@@ -159,4 +159,4 @@
 - [x] Confirm an unconfigured Pages build makes no `/api/trpc` requests and shows a clear setup state.
 - [x] Save a fresh checkpoint containing the live Pages runtime fix.
 
-- [ ] Save a checkpoint after the live GitHub Pages browser verification and `pages-browser-check.md` update.
+- [x] Save a checkpoint after the live GitHub Pages browser verification and `pages-browser-check.md` update.
