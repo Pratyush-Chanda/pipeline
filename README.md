@@ -16,7 +16,7 @@ Install dependencies with `pnpm install`, then start the app with `pnpm dev`. No
 
 Create a GitHub repository, add this project as its contents, and push the default branch. In Vercel, import the repository and deploy without API-key environment variables. The server-side mirror directory is public and requires no credential. Users can select **Automatic — fastest healthy mirror** or pin one of the currently healthy discovered mirrors from the pipeline settings control.
 
-Account synchronization is intentionally not configured in this version. Subscriptions, saved items, and watch history are stored locally in the browser, and the interface communicates that state clearly rather than implying cloud persistence.
+Subscriptions, saved items, and watch history are intentionally local to this browser; no cloud account or remote profile is required.
 
 ## Included routes
 
@@ -30,7 +30,7 @@ Account synchronization is intentionally not configured in this version. Subscri
 | `/playlist/:playlistId` | Playlist metadata and queue |
 | `/history` | Local watch history |
 | `/library` | Local saved library |
-| `/subscriptions` | Local channel subscriptions with sync messaging |
+| `/subscriptions` | Local channel subscriptions stored in this browser |
 
 ## Operational notes
 

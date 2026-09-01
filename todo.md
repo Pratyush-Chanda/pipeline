@@ -160,3 +160,11 @@
 - [x] Save a fresh checkpoint containing the live Pages runtime fix.
 
 - [x] Save a checkpoint after the live GitHub Pages browser verification and `pages-browser-check.md` update.
+
+## No-Manus local-only cleanup
+
+- [x] Remove visible sign-in, sign-in-for-sync, and account-sync controls from the client UI.
+- [x] Remove Manus URLs and Manus-hosted asset references from client source, generated Pages artifacts, and user-facing documentation.
+- [x] Preserve local history, library, and subscription functionality without account-sync copy.
+- [x] Add regression checks that the built client contains no Manus URL or sign-in UI strings.
+- [x] Rebuild and verify the clean Pages artifact; checkpoint refresh remains the final delivery step.
