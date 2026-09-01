@@ -168,3 +168,16 @@
 - [x] Preserve local history, library, and subscription functionality without account-sync copy.
 - [x] Add regression checks that the built client contains no Manus URL or sign-in UI strings.
 - [x] Rebuild and verify the clean Pages artifact; checkpoint refresh remains the final delivery step.
+
+## Vercel production browser verification
+
+- [ ] Verify `https://pipeline-manus.vercel.app` in the browser as the primary acceptance target.
+- [ ] Inspect browser console and network failures for the deployed home, search, watch, and settings flows.
+- [ ] Fix any repository issues identified from production evidence, preserving GitHub Pages compatibility.
+- [ ] Re-run typecheck, tests, production build, and browser verification against the deployed-oriented configuration.
+- [ ] Save a checkpoint after the production verification and fixes.
+
+- [x] Remove unused template sign-in and Manus dialog surfaces from client source so the repository is fully local-only, not merely bundle-clean.
+- [x] Add explicit Vercel static build/output and SPA fallback configuration for `pipeline-manus.vercel.app`.
+- [x] Remove the managed-preview Vite runtime dependency and verify it is absent from production build output.
+- [x] Remove stale `client/public/__manus__` debug assets so Vercel and Pages artifacts cannot ship managed-preview files.
