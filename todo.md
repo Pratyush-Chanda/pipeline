@@ -190,3 +190,4 @@
 - [ ] Re-run tests/build and save the final production verification checkpoint.
 - [ ] Exclude `/api/*` from the SPA fallback rewrite so Vercel tRPC requests reach the catch-all function instead of returning `index.html`.
 - [ ] Replace the unregistered dynamic Vercel API route with a concrete `/api/trpc` function and nested-procedure rewrite, then verify it live in the browser.
+- [ ] Use a concrete top-level `/api/index.ts` Vercel function plus explicit `/api/trpc` rewrites if nested function routing remains unavailable.

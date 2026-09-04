@@ -25,6 +25,14 @@ describe("Vercel static deployment configuration", () => {
   });
 
   it("registers the same-origin tRPC backend function", () => {
-    expect(vercelConfig.functions?.["api/trpc/[...path].ts"]?.maxDuration).toBe(60);
+    expect(vercelConfig.functions?.["api/index.ts"]?.maxDuration).toBe(60);
+    expect(vercelConfig.rewrites).toContainEqual({
+      source: "/api/trpc",
+      destination: "/api",
+    });
+    expect(vercelConfig.rewrites).toContainEqual({
+      source: "/api/trpc/:path*",
+      destination: "/api",
+    });
   });
 });
