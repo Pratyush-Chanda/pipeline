@@ -2,7 +2,7 @@
   "buildCommand": "pnpm build:client",
   "outputDirectory": "dist/public",
   "functions": {
-    "api/[...path].ts": {
+    "api/trpc/[...path].ts": {
       "maxDuration": 60
     }
   },

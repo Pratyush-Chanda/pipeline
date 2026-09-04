@@ -189,3 +189,4 @@
 - [ ] Verify mirror discovery, search, watch, and settings through the deployed browser after the backend path is live.
 - [ ] Re-run tests/build and save the final production verification checkpoint.
 - [ ] Exclude `/api/*` from the SPA fallback rewrite so Vercel tRPC requests reach the catch-all function instead of returning `index.html`.
+- [ ] Replace the unregistered dynamic Vercel API route with a concrete `/api/trpc` function and nested-procedure rewrite, then verify it live in the browser.
