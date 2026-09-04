@@ -1,5 +1,10 @@
 {
   "buildCommand": "pnpm build:client",
   "outputDirectory": "dist/public",
+  "functions": {
+    "api/[...path].ts": {
+      "maxDuration": 60
+    }
+  },
   "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }

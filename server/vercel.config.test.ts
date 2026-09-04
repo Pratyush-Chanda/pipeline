@@ -8,6 +8,7 @@ const vercelConfig = JSON.parse(
   buildCommand?: string;
   outputDirectory?: string;
   rewrites?: Array<{ source?: string; destination?: string }>;
+  functions?: Record<string, { maxDuration?: number }>;
 };
 
 describe("Vercel static deployment configuration", () => {
@@ -21,5 +22,9 @@ describe("Vercel static deployment configuration", () => {
       source: "/(.*)",
       destination: "/index.html",
     });
+  });
+
+  it("registers the same-origin tRPC backend function", () => {
+    expect(vercelConfig.functions?.["api/[...path].ts"]?.maxDuration).toBe(60);
   });
 });

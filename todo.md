@@ -181,3 +181,10 @@
 - [x] Add explicit Vercel static build/output and SPA fallback configuration for `pipeline-manus.vercel.app`.
 - [x] Remove the managed-preview Vite runtime dependency and verify it is absent from production build output.
 - [x] Remove stale `client/public/__manus__` debug assets so Vercel and Pages artifacts cannot ship managed-preview files.
+
+## Vercel backend path follow-up
+
+- [ ] Add a Vercel-compatible server entrypoint for the existing tRPC/Invidious proxy.
+- [ ] Route the deployed client’s API requests to the same-origin Vercel backend when available, while preserving GitHub Pages external-origin support.
+- [ ] Verify mirror discovery, search, watch, and settings through the deployed browser after the backend path is live.
+- [ ] Re-run tests/build and save the final production verification checkpoint.
