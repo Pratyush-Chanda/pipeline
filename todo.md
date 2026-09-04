@@ -188,3 +188,4 @@
 - [ ] Route the deployed client’s API requests to the same-origin Vercel backend when available, while preserving GitHub Pages external-origin support.
 - [ ] Verify mirror discovery, search, watch, and settings through the deployed browser after the backend path is live.
 - [ ] Re-run tests/build and save the final production verification checkpoint.
+- [ ] Exclude `/api/*` from the SPA fallback rewrite so Vercel tRPC requests reach the catch-all function instead of returning `index.html`.

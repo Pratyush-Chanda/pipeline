@@ -19,7 +19,7 @@ describe("Vercel static deployment configuration", () => {
 
   it("falls back client-side routes to the static shell", () => {
     expect(vercelConfig.rewrites).toContainEqual({
-      source: "/(.*)",
+      source: "/((?!api(?:/|$)).*)",
       destination: "/index.html",
     });
   });
